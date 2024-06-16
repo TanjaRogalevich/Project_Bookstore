@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 25px;
+    color: black;
+  }
+  
+  .logo {
+    font-size: 15px;
+  }
+  
+  .search-form {
+    display: flex;
+  }
+  
+  .search-form__input {
+    width: 700px;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+  }
+
+  .icon {
+    display: flex;
+    gap: 25px;
+    margin-right: 30px;
+  }
+  
+  .icon__cart {
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+  }
