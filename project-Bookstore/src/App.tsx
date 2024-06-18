@@ -1,12 +1,14 @@
 import './App.scss'
-import Layout from './components/layout'
+import { BookCard } from './components/bookCard'
+import { BookList } from './components/bookList'
+import { Layout } from './components/layout'
 
-function App () {
+export function App () {
   return (
     <>
-      <Layout />
+      <Layout>
+        <BookList />
+      </Layout>
     </>
   )
 }
-
-export default App

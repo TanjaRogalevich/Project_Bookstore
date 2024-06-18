@@ -1,21 +1,19 @@
 import { Link } from 'react-router-dom'
 import { Book } from '../../type'
 
-interface BookCardProps<T extends Book> {
-  book: T;
-}
+// interface BookCardProps<T extends Book> {
+//   props: T;
+// }
 
-function BookCard<T extends Book> ({ book }: BookCardProps<T>) {
+export function BookCard (props: Book) {
   return (
     <div className="book-card">
-      <img src={book.image} alt="" />
-      <Link className="nav-link active" aria-current="page" to={`/book/${book.id}`}>
-        <h3>{book.title}</h3>
-      </Link>
-      <p>{book.subtitle}</p>
-      <p>{book.price}</p>
+      <img src={props.image} alt="" />
+      {/* <Link className="nav-link active" aria-current="page" to={`/book/${props.id}`}> */}
+        <h3>{props.title}</h3>
+      {/* </Link> */}
+      <p>{props.subtitle}</p>
+      <p>{props.price}</p>
     </div>
   )
 }
-
-export default BookCard
