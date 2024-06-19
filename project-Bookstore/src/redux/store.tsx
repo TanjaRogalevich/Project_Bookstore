@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { authReducer, fetchRefreshJWT } from './auth-slice'
+import { booksReducer } from './books-slice'
 import { isTokenExpired } from '../utils/isTokenExpired'
 
 let isRefreshing = false

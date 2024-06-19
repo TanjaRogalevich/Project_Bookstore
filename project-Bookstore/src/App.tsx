@@ -1,14 +1,14 @@
 import './App.scss'
-import { BookCard } from './components/bookCard'
-import { BookList } from './components/bookList'
-import { Layout } from './components/layout'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
 
 export function App () {
   return (
-    <>
-      <Layout>
-        <BookList />
-      </Layout>
-    </>
+    <Provider store={store}>
+        <RouterProvider router={router}>
+        </RouterProvider>
+    </Provider>
   )
 }

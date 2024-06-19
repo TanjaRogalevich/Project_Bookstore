@@ -49,8 +49,8 @@ const booksSlice = createSlice({
       })
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.isLoading = false
-        state.list = action.payload.books.map((post) => {
-          return { ...post, likes: 0, dislikes: 0, isFavorite: false }
+        state.list = action.payload.books.map((book) => {
+          return { ...book, likes: 0, dislikes: 0, isFavorite: false }
         })
       })
       .addCase(fetchBooks.rejected, (state, action) => {
@@ -60,5 +60,5 @@ const booksSlice = createSlice({
   }
 })
 
-export const { addLike, addDislike, addFavorite } = booksSlice.actions
-export const postsReducer = booksSlice.reducer
+// export const { addLike, addDislike, addFavorite } = booksSlice.actions
+export const sReducer = booksSlice.reducer
