@@ -1,7 +1,7 @@
-import { BookList } from '../components/bookList'
+import { Books } from '../components/bookList'
 
 export function BooksPage () {
   return (
-    <BookList />
+    <Books/>
   )
 }

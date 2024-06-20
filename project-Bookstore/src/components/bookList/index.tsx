@@ -27,7 +27,7 @@ export function Books () {
   const isLoading = useSelector(state => state.books.isLoading)
 
   useEffect(() => {
-    if (books.length > 0) return
+    // if (books.length > 0) return
 
     dispatch(fetchBooks())
   }, [])
@@ -37,7 +37,7 @@ export function Books () {
 
     if (error) return <div className="alert alert-danger">{error}</div>
 
-    return books.map(book => <BookCard key={book.id} id={book.isbn13} title={book.title} text={book.body} image={book.image}/>)
+    return books.map(book => <BookCard key={book.isbn13} id={book.isbn13} title={book.title} subtitle={book.subtitle} image={book.image} price={book.price}/>)
   }
 
   return (
@@ -52,7 +52,7 @@ export function Books () {
       </ul> */}
       <div className="wrapper-post">
         <div className="item-lg">
-          { renderBooks() }
+          {renderBooks()}
         </div>
         {/* <PostPreviewModal /> */}
       </div>

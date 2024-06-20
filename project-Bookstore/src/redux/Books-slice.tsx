@@ -1,21 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { requestBooks } from '../services/book'
 
-const initialState = {
+interface BooksState {
+  list: [],
+  isLoading: boolean,
+  error: any,
+  limit: number
+}
+
+const initialState: BooksState = {
   list: [],
   isLoading: false,
   error: null,
   limit: 20
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async (params = {}, { rejectWithValue }) => {
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { rejectWithValue }) => {
   try {
-    const offset = (params.page - 1) * initialState.limit
-    return await requestBooks({ limit: initialState.limit, offset, ...params })
+    return await requestBooks()
   } catch (e) {
     return rejectWithValue(e.message)
   }
 })
+// export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { rejectWithValue }) => {
+//   try {
+//     const response = await fetch('https://api.itbook.store/1.0/new')
+//     const data = await response.json()
+//     return data.books
+//   } catch (e) {
+//     return rejectWithValue((e as Error).message)
+//   }
+// })
 
 const booksSlice = createSlice({
   name: 'books',
@@ -49,6 +64,7 @@ const booksSlice = createSlice({
       })
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.isLoading = false
+        console.log(action.payload)
         state.list = action.payload.books.map((book) => {
           return { ...book, likes: 0, dislikes: 0, isFavorite: false }
         })
@@ -56,9 +72,10 @@ const booksSlice = createSlice({
       .addCase(fetchBooks.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.error.message
+        console.log(state.error)
       })
   }
 })
 
 // export const { addLike, addDislike, addFavorite } = booksSlice.actions
-export const sReducer = booksSlice.reducer
+export const booksReducer = booksSlice.reducer

@@ -7,8 +7,8 @@ import { store } from './redux/store'
 export function App () {
   return (
     <Provider store={store}>
-        <RouterProvider router={router}>
-        </RouterProvider>
+      <RouterProvider router={router}>
+      </RouterProvider>
     </Provider>
   )
 }
