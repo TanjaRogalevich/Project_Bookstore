@@ -1,36 +1,22 @@
 import { Link } from 'react-router-dom'
 import { Book } from '../../types/type'
+import './index.scss'
 
-// interface BookCardProps {
-//   book: Book;
-// }
+interface BookCardProps {
+  book: Book
+}
 
-// export function BookCard ({ book } : BookCardProps) {
-//   return (
-//     <div className="book-card">
-//       <img src={book.image} alt="" />
-//       <Link className="nav-link active" aria-current="page" to={`/book/${book.id}`}>
-//         <h3>{book.title}</h3>
-//       </Link>
-//       <p>{book.subtitle}</p>
-//       <p>{book.price}</p>
-//     </div>
-//   )
-// }
-
-// interface BookCardProps {
-//   book: Book;
-// }
-
-export function BookCard (props : Book) {
+export function BookCard ({ book }: BookCardProps) {
   return (
     <div className="book-card">
-      <img src={props.image} alt="" />
-      <Link className="nav-link active" aria-current="page" to={`/book/${props.id}`}>
-        <h3>{props.title}</h3>
-      </Link>
-      <p>{props.subtitle}</p>
-      <p>{props.price}</p>
+      <div className="book-card__image" >
+        <img src={book.image} alt={book.title} />
+      </div>
+        <Link className="nav-link active" aria-current="page" to={`/book/${book.isbn13}`}>
+          <h3 className="book-card__title">{book.title}</h3>
+        </Link>
+        <p className="book-card__subtitle">{book.subtitle}</p>
+      <p className="book-card__price">{book.price}</p>
     </div>
   )
 }

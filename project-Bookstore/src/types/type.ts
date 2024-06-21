@@ -5,4 +5,5 @@ export interface Book {
   price: string;
   image: string;
   url: string;
+  isbn13: string
 }

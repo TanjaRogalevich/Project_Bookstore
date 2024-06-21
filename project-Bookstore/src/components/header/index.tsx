@@ -1,7 +1,7 @@
 import { FiShoppingCart, FiHeart } from 'react-icons/fi'
 import './index.scss'
 
-function Header () {
+export function Header () {
   return (
     <header className="header">
       <div className="logo">
@@ -18,5 +18,3 @@ function Header () {
     </header>
   )
 }
-
-export default Header

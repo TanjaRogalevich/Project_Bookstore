@@ -5,8 +5,6 @@ interface ContainerProps {
   children: React.ReactNode;
 }
 
-function Container ({ children }: ContainerProps) {
+export function Container ({ children }: ContainerProps) {
   return <div className="container">{children}</div>
 }
-
-export default Container

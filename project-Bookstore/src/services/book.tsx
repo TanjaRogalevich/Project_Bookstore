@@ -1,9 +1,14 @@
 import { client } from '../api/client'
-import { booksEndpoint } from '../api/endpoints'
+import { booksEndpoint, bookEndpoint } from '../api/endpoints'
 
 async function requestBooks (params = {}) {
   const { data } = await client.get(booksEndpoint, { params })
   return data
 }
 
-export { requestBooks }
+async function requestBook (id) {
+  const { data } = await client.get(`${bookEndpoint}${id}`)
+  return data
+}
+
+export { requestBooks, requestBook }

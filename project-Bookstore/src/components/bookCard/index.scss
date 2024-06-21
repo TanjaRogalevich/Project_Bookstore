@@ -1,0 +1,38 @@
+.book-card {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.book-card__image {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 80%;
+  }
+}
+
+.book-card__title {
+  font-size: 20px;
+  margin-bottom: 5px;
+
+}
+
+.book-card__subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 5px;
+  flex-grow: 1;
+}
+
+.book-card__price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+}
