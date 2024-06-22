@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { BookCard } from '../bookCard'
-import './index.scss'
 import { fetchBooks } from '../../redux/books-slice'
 import { Book } from '../../types/type'
+import { BookCard } from '../../components/bookCard'
 
-export function Books () {
+export function Favorite () {
   const dispatch = useDispatch()
-  const books = useSelector(state => state.books.list)
+  const books = useSelector(state => state.books.list.filter(book => book.favorite === true))
   const error = useSelector(state => state.books.error)
   const isLoading = useSelector(state => state.books.isLoading)
 
@@ -27,19 +25,8 @@ export function Books () {
   }
 
   return (
-    <>
-      {/* <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/posts/allPosts">All posts</Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/posts/favorite">Favorites</Link>
-        </li>
-      </ul> */}
-      <div className="wrapper-book">
-          {renderBooks()}
-        {/* <PostPreviewModal /> */}
-      </div>
-    </>
+    <div className="wrapper-book">
+        {renderBooks()}
+    </div>
   )
 }

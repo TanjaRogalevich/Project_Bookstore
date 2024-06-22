@@ -42,12 +42,12 @@ const booksSlice = createSlice({
     //   )
     // },
 
-    // addFavorite: (state, action) => {
-    //   const { postId } = action.payload
-    //   state.list = state.list.map(post =>
-    //     post.id === postId ? { ...post, favorite: !post.favorite } : post
-    //   )
-    // }
+    addFavorite: (state, action) => {
+      const bookId = action.payload
+      state.list = state.list.map(book =>
+        book.id === bookId ? { ...book, favorite: !book.favorite } : book
+      )
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -57,7 +57,7 @@ const booksSlice = createSlice({
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.isLoading = false
         state.list = action.payload.books.map((book: Book) => {
-          return { ...book, likes: 0, dislikes: 0, isFavorite: false }
+          return { ...book, favorite: false, id: book.isbn13 }
         })
       })
       .addCase(fetchBooks.rejected, (state, action) => {
@@ -67,5 +67,5 @@ const booksSlice = createSlice({
   }
 })
 
-// export const { addLike, addDislike, addFavorite } = booksSlice.actions
+export const { addFavorite } = booksSlice.actions
 export const booksReducer = booksSlice.reducer
