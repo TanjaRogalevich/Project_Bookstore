@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { BookCard } from '../bookCard'
@@ -27,19 +26,8 @@ export function Books () {
   }
 
   return (
-    <>
-      {/* <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/posts/allPosts">All posts</Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/posts/favorite">Favorites</Link>
-        </li>
-      </ul> */}
-      <div className="wrapper-book">
-          {renderBooks()}
-        {/* <PostPreviewModal /> */}
-      </div>
-    </>
+    <div className="wrapper-book">
+      {renderBooks()}
+    </div>
   )
 }

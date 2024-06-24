@@ -1,24 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { requestBooks } from '../services/book'
+import { requestBooks, requestSearch } from '../services/book'
 import { Book } from '../types/type'
 
 interface BooksState {
-  list: [],
+  list: Book[],
   isLoading: boolean,
   error: any,
-  limit: number
 }
 
 const initialState: BooksState = {
   list: [],
   isLoading: false,
-  error: null,
-  limit: 12
+  error: null
 }
 
-export const fetchBooks = createAsyncThunk('books/fetchBooks', async (_, { rejectWithValue }) => {
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async (params = {}, { rejectWithValue }) => {
   try {
-    return await requestBooks({ limit: 3 })
+    return await requestBooks({ params })
+  } catch (e) {
+    return rejectWithValue(e.message)
+  }
+})
+
+export const fetchSearch = createAsyncThunk('search/fetchSearch', async (query, { rejectWithValue }) => {
+  try {
+    return await requestSearch(query)
   } catch (e) {
     return rejectWithValue(e.message)
   }
@@ -28,20 +34,6 @@ const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    // addLike: (state, action) => {
-    //   const { postId } = action.payload
-    //   state.list = state.list.map(post =>
-    //     post.id === postId ? { ...post, likes: post.likes + 1 } : post
-    //   )
-    // },
-
-    // addDislike: (state, action) => {
-    //   const { postId } = action.payload
-    //   state.list = state.list.map(post =>
-    //     post.id === postId ? { ...post, dislikes: post.dislikes + 1 } : post
-    //   )
-    // },
-
     addFavorite: (state, action) => {
       const bookId = action.payload
       state.list = state.list.map(book =>
@@ -61,6 +53,20 @@ const booksSlice = createSlice({
         })
       })
       .addCase(fetchBooks.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = action.error.message
+      })
+      .addCase(fetchSearch.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(fetchSearch.fulfilled, (state, action) => {
+        state.isLoading = false
+        console.log(state.list)
+        state.list = action.payload.books.map((book: Book) => {
+          return { ...book, favorite: false, id: book.isbn13 }
+        })
+      })
+      .addCase(fetchSearch.rejected, (state, action) => {
         state.isLoading = false
         state.error = action.error.message
       })

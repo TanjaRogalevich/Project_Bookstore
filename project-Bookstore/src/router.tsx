@@ -3,6 +3,7 @@ import { Layout } from './components/layout'
 import { BooksPage } from './pages/Books'
 import { FavoritePage } from './pages/Favorites'
 import { BookPage } from './pages/Book'
+import { SearchResults } from './pages/SearchResults'
 
 export const router = createBrowserRouter([
   {
@@ -10,15 +11,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <BooksPage/>
+        element: <BooksPage />
       },
       {
         path: '/book/:bookId',
-        element: <BookPage/>
+        element: <BookPage />
       },
       {
         path: '/books/favorite',
         element: <FavoritePage />
+      },
+      {
+        path: '/search/:query',
+        element: <SearchResults />
       }
     ]
   }

@@ -5,5 +5,6 @@ export interface Book {
   price: string;
   image: string;
   url: string;
-  isbn13: string
+  isbn13: string;
+  favorite: boolean
 }

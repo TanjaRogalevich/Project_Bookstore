@@ -25,10 +25,12 @@ export function BookCard ({ book }: BookCardProps) {
           <h3 className="book-card__title">{book.title}</h3>
         </Link>
         <p className="book-card__subtitle">{book.subtitle}</p>
-      <p className="book-card__price">{book.price}</p>
-      <button onClick={handleClickFavorite}>
+      <div className="book-card__footer">
+        <p className="book-card__footer-price">{book.price}</p>
+        <button onClick={handleClickFavorite}>
           {book.favorite ? <FaBookmark /> : <FaRegBookmark />}
         </button>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { FiShoppingCart, FiHeart, FiBookmark } from 'react-icons/fi'
+import { SearchForm } from '../searchForm'
 import './index.scss'
 
 export function Header () {
@@ -8,15 +9,12 @@ export function Header () {
   return (
     <header className="header">
       <div className="logo">
-        <h1>BOOKSTORE</h1>
+        <NavLink className={navLinkClass} to="/"><h1>BOOKSTORE</h1></NavLink>
       </div>
-      <form className="search-form">
-        <input type="text" placeholder="Search..." className="search-form__input" />
-        <button type="submit" className="search-form__button">Search</button>
-      </form>
+      <SearchForm></SearchForm>
       <div className="icons">
         <NavLink className={navLinkClass} to="/books/favorite"><FiShoppingCart className="icon" /></NavLink>
-        <NavLink className={navLinkClass} to="/books/favorite"><FiHeart className="icon" /></NavLink>
+        {/* <NavLink className={navLinkClass} to="/books/favorite"><FiHeart className="icon" /></NavLink> */}
         <NavLink className={navLinkClass} to="/books/favorite"><FiBookmark className="icon" /></NavLink>
       </div>
     </header>
