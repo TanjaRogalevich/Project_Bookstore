@@ -12,8 +12,6 @@ export function Books () {
   const isLoading = useSelector(state => state.books.isLoading)
 
   useEffect(() => {
-    if (books.length > 0) return
-
     dispatch(fetchBooks())
   }, [])
 

@@ -12,7 +12,7 @@ export function SearchForm () {
 
   function handleSubmit (event) {
     event.preventDefault()
-    navigate(`/search/${search}`)
+    navigate(`/books/search/${search}/page/1`)
   }
 
   return (

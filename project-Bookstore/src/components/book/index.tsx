@@ -1,13 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBook } from '../../redux/book-slice'
+import { addToCart } from '../../redux/books-slice'
 import './index.scss'
 
 export function Book () {
   const { bookId } = useParams()
   const dispatch = useDispatch()
   const book = useSelector(state => state.book.data)
+
+  const [isButtonDisabled, setButtonDisabled] = useState(false)
 
   useEffect(() => {
     if (bookId) {
@@ -16,6 +19,11 @@ export function Book () {
   }, [bookId])
 
   if (!book) return <div>Error</div>
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(bookId))
+    setButtonDisabled(true)
+  }
 
   return (
     <div className="book-detail">
@@ -29,7 +37,9 @@ export function Book () {
           <p className="book-author">Authors: {book.authors}</p>
           <p className="book-publisher">Language: {book.language}</p>
           <p className="book-isbn">Year of release: {book.year}</p>
-          <button className="add-to-cart">Add to Cart</button>
+          <button className="add-to-cart" onClick={handleAddToCart} disabled={isButtonDisabled} style={{ backgroundColor: isButtonDisabled ? '#ccc' : '#40bf40' }}>
+            {isButtonDisabled ? 'Added to Cart' : 'Add to Cart'}
+          </button>
       </div>
       </div>
       <div className="book-description">

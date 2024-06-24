@@ -1,7 +1,11 @@
 import { Favorite } from '../components/favorite'
+import { Title } from '../components/title'
 
 export function FavoritePage () {
   return (
-    <Favorite/>
+    <>
+      <Title>Your favorite</Title>
+      <Favorite/>
+    </>
   )
 }

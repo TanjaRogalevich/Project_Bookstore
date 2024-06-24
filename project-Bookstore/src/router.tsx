@@ -4,6 +4,7 @@ import { BooksPage } from './pages/Books'
 import { FavoritePage } from './pages/Favorites'
 import { BookPage } from './pages/Book'
 import { SearchResults } from './pages/SearchResults'
+import { CartPage } from './pages/Cart'
 
 export const router = createBrowserRouter([
   {
@@ -22,8 +23,12 @@ export const router = createBrowserRouter([
         element: <FavoritePage />
       },
       {
-        path: '/search/:query',
+        path: '/books/search/:query/page/:page',
         element: <SearchResults />
+      },
+      {
+        path: '/books/addToCart',
+        element: <CartPage />
       }
     ]
   }

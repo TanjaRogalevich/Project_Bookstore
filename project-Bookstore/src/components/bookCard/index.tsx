@@ -14,7 +14,6 @@ export function BookCard ({ book }: BookCardProps) {
 
   const handleClickFavorite = (event) => {
     dispatch(addFavorite(book.id))
-    console.log(book)
   }
   return (
     <div className="book-card">
@@ -28,7 +27,7 @@ export function BookCard ({ book }: BookCardProps) {
       <div className="book-card__footer">
         <p className="book-card__footer-price">{book.price}</p>
         <button onClick={handleClickFavorite}>
-          {book.favorite ? <FaBookmark /> : <FaRegBookmark />}
+          {book.isFavorite ? <FaBookmark /> : <FaRegBookmark />}
         </button>
       </div>
     </div>

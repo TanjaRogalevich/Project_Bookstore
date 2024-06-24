@@ -13,7 +13,7 @@ export function Header () {
       </div>
       <SearchForm></SearchForm>
       <div className="icons">
-        <NavLink className={navLinkClass} to="/books/favorite"><FiShoppingCart className="icon" /></NavLink>
+        <NavLink className={navLinkClass} to="/books/addToCart"><FiShoppingCart className="icon" /></NavLink>
         {/* <NavLink className={navLinkClass} to="/books/favorite"><FiHeart className="icon" /></NavLink> */}
         <NavLink className={navLinkClass} to="/books/favorite"><FiBookmark className="icon" /></NavLink>
       </div>

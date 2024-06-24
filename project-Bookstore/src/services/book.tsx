@@ -7,7 +7,7 @@ async function requestBooks (params = {}) {
 }
 
 async function requestBook (id) {
-  const { data } = await client.get(`${bookEndpoint}${id}`)
+  const { data } = await client.get(`${bookEndpoint}/${id}`)
   return data
 }
 
@@ -15,8 +15,8 @@ async function requestBook (id) {
 //   const { data } = await client.get(searchEndpoint, { params })
 //   return data
 // }
-async function requestSearch(query) {
-  const { data } = await client.get(`${searchEndpoint}${query}`)
+async function requestSearch(query, page) {
+  const { data } = await client.get(`${searchEndpoint}/${query}/${page}`)
   return data
 }
 
