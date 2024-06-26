@@ -41,31 +41,78 @@ const booksSlice = createSlice({
   initialState,
   reducers: {
     addFavorite: (state, action) => {
-      const bookId = action.payload
-      const card = state.list.find((book) => book.id === bookId)
-      state.favorites.push(card)
-      card.isFavorite = !card.isFavorite
+      // const bookId = action.payload
+      // const card = state.list.find((book) => book.id === bookId)
+      // state.favorites.push(card)
+      // card.isFavorite = !card.isFavorite
 
       // state.list = state.list.map(book =>
       //   book.id === bookId ? { ...book, isFavorite: !book.isFavorite } : book
       // )
-      // localStorage.setItem('favorites', JSON.stringify(state.favorites))
+
+      const bookId = action.payload
+      const book = state.list.find(book => book.id === bookId)
+      const bookInFavorites = state.favorites.find(book => book.id === bookId)
+      if (book) {
+        book.isFavorite = !book.isFavorite
+        if (book.isFavorite && !bookInFavorites) {
+          state.favorites.push(book)
+        }
+      }
+
+      localStorage.setItem('favorites', JSON.stringify(state.favorites))
+
+
+
+      // state.list = state.list.map(book =>
+      //   book.id === bookId ? { ...book, isFavorite: book.isFavorite } : book
+      // )
+    },
+    removeFromFavorites: (state, action) => {
+      const bookId = action.payload
+      const cardIndex = state.favorites.findIndex((book) => book.id === bookId)
+      state.favorites.splice(cardIndex, 1)
+
+      // const bookId = action.payload
+      // state.favorites = state.favorites.filter(book => book.id !== bookId)
+      // const book = state.list.find(book => book.id === bookId)
+      // if (book) {
+      //   book.isFavorite = false
+      // }
+      localStorage.setItem('favorites', JSON.stringify(state.favorites))
     },
     addToCart: (state, action) => {
-      const bookId = action.payload
-      const card = state.list.find((book) => book.id === bookId)
-      state.cart.push(card)
+      // const bookId = action.payload
+      // const card = state.list.find((book) => book.id === bookId)
+      // state.cart.push(card)
 
       // state.list = state.list.map(book =>
       //   book.id === bookId ? { ...book, inCart: !book.cart } : book
       // )
+
+      const bookId = action.payload
+      const book = state.list.find(book => book.id === bookId)
+      if (book) {
+        book.inCart = !book.inCart
+        if (book.inCart) {
+          state.cart.push(book)
+        }
+      }
     },
     removeFromCart: (state, action) => {
+      // const bookId = action.payload
+      // const cardIndex = state.favorites.findIndex((book) => book.id === bookId)
+      // state.cart.splice(cardIndex, 1)
       const bookId = action.payload
-      const cardIndex = state.list.findIndex((book) => book.id === bookId)
-      state.cart.splice(cardIndex, 1)
+      state.cart = state.cart.filter(book => book.id !== bookId)
+      const book = state.list.find(book => book.id === bookId)
+      if (book) {
+        book.isFavorite = false
+      }
+      localStorage.setItem('cart', JSON.stringify(state.favorites))
     }
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchBooks.pending, (state) => {
@@ -74,7 +121,7 @@ const booksSlice = createSlice({
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.isLoading = false
         state.list = action.payload.books.map((book: Book) => {
-          return { ...book, isFavorite: false, id: book.isbn13 }
+          return { ...book, isFavorite: false, inCart: false, quantity: 1, id: book.isbn13 }
         })
       })
       .addCase(fetchBooks.rejected, (state, action) => {
@@ -88,7 +135,7 @@ const booksSlice = createSlice({
         state.isLoading = false
         console.log(state.list)
         state.list = action.payload.books.map((book: Book) => {
-          return { ...book, isFavorite: false, id: book.isbn13 }
+          return { ...book, isFavorite: false, inCart: false, quantity: 1, id: book.isbn13 }
         })
         state.pagesCount = Math.ceil(action.payload.total / 10)
       })
@@ -99,5 +146,5 @@ const booksSlice = createSlice({
   }
 })
 
-export const { addFavorite, addToCart, removeFromCart } = booksSlice.actions
+export const { addFavorite, addToCart, removeFromFavorites, removeFromCart } = booksSlice.actions
 export const booksReducer = booksSlice.reducer

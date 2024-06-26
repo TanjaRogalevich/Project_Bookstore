@@ -11,10 +11,6 @@ async function requestBook (id) {
   return data
 }
 
-// async function requestSearch (params = {}) {
-//   const { data } = await client.get(searchEndpoint, { params })
-//   return data
-// }
 async function requestSearch(query, page) {
   const { data } = await client.get(`${searchEndpoint}/${query}/${page}`)
   return data

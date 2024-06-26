@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Book } from '../../types/type'
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addFavorite } from '../../redux/books-slice'
 import './index.scss'
+import { useEffect } from 'react'
 
 interface BookCardProps {
   book: Book
@@ -11,10 +12,35 @@ interface BookCardProps {
 
 export function BookCard ({ book }: BookCardProps) {
   const dispatch = useDispatch()
+  const books = useSelector(state=>state.books.list)
 
-  const handleClickFavorite = (event) => {
+  const handleClickFavorite = () => {
     dispatch(addFavorite(book.id))
   }
+
+  const getFavoritesFromStorage = localStorage.getItem('favorites')
+  const favoritesBooks = JSON.parse(getFavoritesFromStorage)
+
+  function check () {
+    if (favoritesBooks.length > 0) {
+      const bookInFavorites = favoritesBooks.find(item => item.id === book.id)
+      if (bookInFavorites) {
+        // book.isFavorite = true
+        return <FaBookmark />
+      } else {
+        return <FaRegBookmark />
+      }
+    } else {
+      return <FaRegBookmark />
+    }
+  }
+
+
+
+  useEffect(()=>{
+
+  }, [books])
+
   return (
     <div className="book-card">
       <div className="book-card__image" >
@@ -27,7 +53,8 @@ export function BookCard ({ book }: BookCardProps) {
       <div className="book-card__footer">
         <p className="book-card__footer-price">{book.price}</p>
         <button onClick={handleClickFavorite}>
-          {book.isFavorite ? <FaBookmark /> : <FaRegBookmark />}
+          {check()}
+          {/* {book.isFavorite ? <FaBookmark /> : <FaRegBookmark />} */}
         </button>
       </div>
     </div>

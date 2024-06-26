@@ -33,13 +33,16 @@ export function Book () {
           <img src={book.image} alt=""/>
       </div>
       <div className="book-info">
-          <p className="book-price">{book.price}</p>
-          <p className="book-author">Authors: {book.authors}</p>
-          <p className="book-publisher">Language: {book.language}</p>
-          <p className="book-isbn">Year of release: {book.year}</p>
-          <button className="add-to-cart" onClick={handleAddToCart} disabled={isButtonDisabled} style={{ backgroundColor: isButtonDisabled ? '#ccc' : '#40bf40' }}>
-            {isButtonDisabled ? 'Added to Cart' : 'Add to Cart'}
-          </button>
+        <div className="book-in">
+        <p className="book-price">{book.price}</p>
+        <p className="book-rating">  {'★'.repeat((book.rating))}{'☆'.repeat(5 - (book.rating))}</p>
+        </div>
+        <p className="book-author">Authors: {book.authors}</p>
+        <p className="book-publisher">Language: {book.language}</p>
+        <p className="book-release">Year of release: {book.year}</p>
+        <button className="add-to-cart" onClick={handleAddToCart} disabled={isButtonDisabled} style={{ backgroundColor: isButtonDisabled ? '#ccc' : '#40bf40' }}>
+          {isButtonDisabled ? 'Added to Cart' : 'Add to Cart'}
+        </button>
       </div>
       </div>
       <div className="book-description">

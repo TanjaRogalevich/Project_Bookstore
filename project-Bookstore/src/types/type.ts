@@ -8,5 +8,6 @@ export interface Book {
   url: string;
   isbn13: string;
   favorite: boolean;
-  cart: boolean
+  cart: boolean;
+  quantity: number;
 }

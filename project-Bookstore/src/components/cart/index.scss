@@ -6,6 +6,7 @@
   .cart-card{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding:  0px 40px;
@@ -19,7 +20,8 @@
   }
   
   .cart-card__content {
-    margin-left: 10px;
+    margin-left: 20px;
+    width: 500px;
   }
   
   .cart-card__title {
@@ -34,9 +36,9 @@
   }
   
   .cart-card__price {
-    margin-left: 250px;
     font-weight: bold;
     font-size: 20px;
+    margin-left: auto;
   }
   
   .quantity {
