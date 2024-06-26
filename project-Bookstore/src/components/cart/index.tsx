@@ -13,10 +13,7 @@ export function Cart () {
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
-    let total = 0
-    cart.forEach(book => {
-      total += Number(book.price.slice(1))
-    })
+    const total = cart.reduce((accumulator, book) => accumulator + Number(book.price.slice(1)) * book.quantity, 0)
     setTotalPrice(total)
   }, [cart])
 
@@ -51,7 +48,7 @@ export function Cart () {
             </div>
           </div>
           <p className="cart-card__price">{book.price}</p>
-          <button className="cart-card__remove-button" onClick={() =>handleRemoveFromCart(book.id)}>Удалить</button>
+          <button className="cart-card__remove-button" onClick={() => handleRemoveFromCart(book.id)}>Удалить</button>
         </div>
       ))}
             <div className="total-price">

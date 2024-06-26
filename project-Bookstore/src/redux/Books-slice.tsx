@@ -41,15 +41,6 @@ const booksSlice = createSlice({
   initialState,
   reducers: {
     addFavorite: (state, action) => {
-      // const bookId = action.payload
-      // const card = state.list.find((book) => book.id === bookId)
-      // state.favorites.push(card)
-      // card.isFavorite = !card.isFavorite
-
-      // state.list = state.list.map(book =>
-      //   book.id === bookId ? { ...book, isFavorite: !book.isFavorite } : book
-      // )
-
       const bookId = action.payload
       const book = state.list.find(book => book.id === bookId)
       const bookInFavorites = state.favorites.find(book => book.id === bookId)
@@ -61,55 +52,35 @@ const booksSlice = createSlice({
       }
 
       localStorage.setItem('favorites', JSON.stringify(state.favorites))
-
-
-
-      // state.list = state.list.map(book =>
-      //   book.id === bookId ? { ...book, isFavorite: book.isFavorite } : book
-      // )
     },
     removeFromFavorites: (state, action) => {
       const bookId = action.payload
-      const cardIndex = state.favorites.findIndex((book) => book.id === bookId)
-      state.favorites.splice(cardIndex, 1)
-
-      // const bookId = action.payload
-      // state.favorites = state.favorites.filter(book => book.id !== bookId)
-      // const book = state.list.find(book => book.id === bookId)
-      // if (book) {
-      //   book.isFavorite = false
-      // }
+      state.favorites = state.favorites.filter(book => book.id !== bookId)
+      const book = state.list.find(book => book.id === bookId)
+      if (book) {
+        book.isFavorite = false
+      }
       localStorage.setItem('favorites', JSON.stringify(state.favorites))
     },
     addToCart: (state, action) => {
-      // const bookId = action.payload
-      // const card = state.list.find((book) => book.id === bookId)
-      // state.cart.push(card)
-
-      // state.list = state.list.map(book =>
-      //   book.id === bookId ? { ...book, inCart: !book.cart } : book
-      // )
-
       const bookId = action.payload
       const book = state.list.find(book => book.id === bookId)
+      const bookInCart = state.cart.find(book => book.id === bookId)
       if (book) {
         book.inCart = !book.inCart
-        if (book.inCart) {
+        if (book.inCart && !bookInCart) {
           state.cart.push(book)
         }
       }
     },
     removeFromCart: (state, action) => {
-      // const bookId = action.payload
-      // const cardIndex = state.favorites.findIndex((book) => book.id === bookId)
-      // state.cart.splice(cardIndex, 1)
       const bookId = action.payload
       state.cart = state.cart.filter(book => book.id !== bookId)
       const book = state.list.find(book => book.id === bookId)
       if (book) {
-        book.isFavorite = false
+        book.inCart = false
       }
-      localStorage.setItem('cart', JSON.stringify(state.favorites))
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     }
   },
 
