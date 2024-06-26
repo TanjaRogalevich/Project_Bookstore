@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { fetchBooks, removeFromCart } from '../../redux/books-slice'
+import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/books-slice'
 import { Book } from '../../types/type'
 import './index.scss'
 
 export function Cart () {
   const dispatch = useDispatch()
+  const cart = useSelector(state => state.books.cart)
   const error = useSelector(state => state.books.error)
   const isLoading = useSelector(state => state.books.isLoading)
-  const cart = useSelector(state => state.books.cart)
 
   const [totalPrice, setTotalPrice] = useState(0)
 
@@ -22,11 +22,11 @@ export function Cart () {
   }
 
   const handleIncrease = (bookId) => {
-
+    dispatch(increaseQuantity(bookId))
   }
 
   const handleDecrease = (bookId) => {
-
+    dispatch(decreaseQuantity(bookId))
   }
 
   if (isLoading) return <div>Loading...</div>
@@ -41,17 +41,17 @@ export function Cart () {
           <div className="cart-card__content">
             <h3 className="cart-card__title">{book.title}</h3>
             <p className="cart-card__author">{book.subtitle}</p>
-            <div className="quantity">
-              <button onClick={ handleDecrease}>-</button>
-              <span>{book.quantity}</span>
-              <button onClick={handleIncrease}>+</button>
+            <div className="cart-card__quantity">
+              <button onClick={() => handleDecrease(book.id)}>-</button>
+              <span className="cart-card__quantity-number">{book.quantity}</span>
+              <button className="cart-card__quantity-button" onClick={() => handleIncrease(book.id)}>+</button>
             </div>
           </div>
           <p className="cart-card__price">{book.price}</p>
           <button className="cart-card__remove-button" onClick={() => handleRemoveFromCart(book.id)}>Удалить</button>
         </div>
       ))}
-            <div className="total-price">
+      <div className="total-price">
         <h4>Total Price: {totalPrice}$</h4>
       </div>
     </div>

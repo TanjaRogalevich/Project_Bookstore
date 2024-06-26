@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { FiShoppingCart, FiHeart, FiBookmark } from 'react-icons/fi'
+import { FiShoppingCart, FiBookmark } from 'react-icons/fi'
 import { SearchForm } from '../searchForm'
 import './index.scss'
 
@@ -14,7 +14,6 @@ export function Header () {
       <SearchForm></SearchForm>
       <div className="icons">
         <NavLink className={navLinkClass} to="/books/addToCart"><FiShoppingCart className="icon" /></NavLink>
-        {/* <NavLink className={navLinkClass} to="/books/favorite"><FiHeart className="icon" /></NavLink> */}
         <NavLink className={navLinkClass} to="/books/favorite"><FiBookmark className="icon" /></NavLink>
       </div>
     </header>

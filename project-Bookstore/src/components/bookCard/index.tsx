@@ -18,28 +18,19 @@ export function BookCard ({ book }: BookCardProps) {
     dispatch(addFavorite(book.id))
   }
 
-  const getFavoritesFromStorage = localStorage.getItem('favorites')
-  const favoritesBooks = JSON.parse(getFavoritesFromStorage)
-
-  function check () {
-    if (favoritesBooks.length > 0) {
-      const bookInFavorites = favoritesBooks.find(item => item.id === book.id)
-      if (bookInFavorites) {
-        // book.isFavorite = true
-        return <FaBookmark />
-      } else {
-        return <FaRegBookmark />
-      }
-    } else {
-      return <FaRegBookmark />
-    }
-  }
-
-
-
-  useEffect(()=>{
-
-  }, [books])
+  // function check () {
+  //   if (books.length > 0) {
+  //     const bookInFavorites = books.find(item => item.id === book.id)
+  //     if (bookInFavorites && book.isFavorite) {
+  //       // book.isFavorite = true
+  //       return <FaBookmark />
+  //     } else {
+  //       return <FaRegBookmark />
+  //     }
+  //   } else {
+  //     return <FaRegBookmark />
+  //   }
+  // }
 
   return (
     <div className="book-card">
@@ -53,8 +44,8 @@ export function BookCard ({ book }: BookCardProps) {
       <div className="book-card__footer">
         <p className="book-card__footer-price">{book.price}</p>
         <button onClick={handleClickFavorite}>
-          {check()}
-          {/* {book.isFavorite ? <FaBookmark /> : <FaRegBookmark />} */}
+          {/* {check()} */}
+          {book.isFavorite ? <FaBookmark /> : <FaRegBookmark />}
         </button>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { requestBooks, requestSearch } from '../services/book'
 import { Book } from '../types/type'
+import { getFavoritesFromLocalStorage, getCartFromLocalStorage } from '../utils/getFromLocalStorage'
+import { setFavoritesToLocalStorage, setCartToLocalStorage } from '../utils/setFromLocalStorage'
 
 interface BooksState {
   list: Book[],
@@ -13,8 +15,8 @@ interface BooksState {
 
 const initialState: BooksState = {
   list: [],
-  cart: [],
-  favorites: [],
+  cart: getCartFromLocalStorage() || [],
+  favorites: getFavoritesFromLocalStorage() || [],
   isLoading: false,
   error: null,
   pagesCount: null
@@ -52,6 +54,7 @@ const booksSlice = createSlice({
       }
 
       localStorage.setItem('favorites', JSON.stringify(state.favorites))
+      state.favorites = getFavoritesFromLocalStorage()
     },
     removeFromFavorites: (state, action) => {
       const bookId = action.payload
@@ -60,7 +63,9 @@ const booksSlice = createSlice({
       if (book) {
         book.isFavorite = false
       }
-      localStorage.setItem('favorites', JSON.stringify(state.favorites))
+
+      setFavoritesToLocalStorage(state.favorites)
+      state.favorites = getFavoritesFromLocalStorage()
     },
     addToCart: (state, action) => {
       const bookId = action.payload
@@ -72,6 +77,9 @@ const booksSlice = createSlice({
           state.cart.push(book)
         }
       }
+
+      setCartToLocalStorage(state.cart)
+      state.cart = getCartFromLocalStorage()
     },
     removeFromCart: (state, action) => {
       const bookId = action.payload
@@ -80,7 +88,29 @@ const booksSlice = createSlice({
       if (book) {
         book.inCart = false
       }
-      localStorage.setItem('cart', JSON.stringify(state.cart))
+
+      setCartToLocalStorage(state.cart)
+      state.cart = getCartFromLocalStorage()
+    },
+    increaseQuantity: (state, action) => {
+      const bookId = action.payload
+      const book = state.cart.find(book => book.id === bookId)
+      if (book) {
+        book.quantity = book.quantity + 1
+      }
+
+      setCartToLocalStorage(state.cart)
+      state.cart = getCartFromLocalStorage()
+    },
+    decreaseQuantity: (state, action) => {
+      const bookId = action.payload
+      const book = state.cart.find(book => book.id === bookId)
+      if (book && book.quantity > 1) {
+        book.quantity = book.quantity - 1
+      }
+
+      setCartToLocalStorage(state.cart)
+      state.cart = getCartFromLocalStorage()
     }
   },
 
@@ -117,5 +147,5 @@ const booksSlice = createSlice({
   }
 })
 
-export const { addFavorite, addToCart, removeFromFavorites, removeFromCart } = booksSlice.actions
+export const { addFavorite, addToCart, removeFromFavorites, removeFromCart, increaseQuantity, decreaseQuantity } = booksSlice.actions
 export const booksReducer = booksSlice.reducer
