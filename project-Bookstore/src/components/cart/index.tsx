@@ -26,8 +26,12 @@ export function Cart () {
     dispatch(increaseQuantity(bookId))
   }
 
-  const handleDecrease = (bookId: string) => {
-    dispatch(decreaseQuantity(bookId))
+  const handleDecrease = (bookId: string, quantity: number) => {
+    if (quantity <= 1) {
+      dispatch(removeFromCart(bookId))
+    } else {
+      dispatch(decreaseQuantity(bookId))
+    }
   }
 
   if (isLoading) return <div>Loading...</div>

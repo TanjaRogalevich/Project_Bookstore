@@ -5,7 +5,7 @@ import { Book } from '../types/type'
 interface BookState {
   data: Book;
   isLoading: boolean;
-  error: string | null;
+  error: string | null | undefined;
 }
 
 const initialState : BookState = {
@@ -14,7 +14,7 @@ const initialState : BookState = {
   error: null
 }
 
-export const fetchBook = createAsyncThunk('book/fetchBook', async (id, { rejectWithValue }) => {
+export const fetchBook = createAsyncThunk('book/fetchBook', async (id: string | undefined, { rejectWithValue }) => {
   try {
     return await requestBook(id)
   } catch (e) {

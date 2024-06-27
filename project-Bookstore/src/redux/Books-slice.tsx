@@ -9,8 +9,8 @@ interface BooksState {
   cart:Book[];
   favorites:Book[];
   isLoading: boolean;
-  error: string | null;
-  pagesCount: number | null
+  error: string | null | undefined;
+  pagesCount: number | null;
 }
 
 interface Fetch {
@@ -47,7 +47,7 @@ const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    addFavorite: (state, action: PayloadAction<string>) => {
+    addFavorite: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       const book = state.list.find(book => book.id === bookId)
       const bookInFavorites = state.favorites.find(book => book.id === bookId)
@@ -61,7 +61,7 @@ const booksSlice = createSlice({
       localStorage.setItem('favorites', JSON.stringify(state.favorites))
       state.favorites = getFavoritesFromLocalStorage()
     },
-    removeFromFavorites: (state, action: PayloadAction<string>) => {
+    removeFromFavorites: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       state.favorites = state.favorites.filter(book => book.id !== bookId)
       const book = state.list.find(book => book.id === bookId)
@@ -72,7 +72,7 @@ const booksSlice = createSlice({
       setFavoritesToLocalStorage(state.favorites)
       state.favorites = getFavoritesFromLocalStorage()
     },
-    addToCart: (state, action: PayloadAction<string>) => {
+    addToCart: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       const book = state.list.find(book => book.id === bookId)
       const bookInCart = state.cart.find(book => book.id === bookId)
@@ -86,7 +86,7 @@ const booksSlice = createSlice({
       setCartToLocalStorage(state.cart)
       state.cart = getCartFromLocalStorage()
     },
-    removeFromCart: (state, action: PayloadAction<string>) => {
+    removeFromCart: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       state.cart = state.cart.filter(book => book.id !== bookId)
       const book = state.list.find(book => book.id === bookId)
@@ -97,7 +97,7 @@ const booksSlice = createSlice({
       setCartToLocalStorage(state.cart)
       state.cart = getCartFromLocalStorage()
     },
-    increaseQuantity: (state, action: PayloadAction<string>) => {
+    increaseQuantity: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       const book = state.cart.find(book => book.id === bookId)
       if (book) {
@@ -107,7 +107,7 @@ const booksSlice = createSlice({
       setCartToLocalStorage(state.cart)
       state.cart = getCartFromLocalStorage()
     },
-    decreaseQuantity: (state, action: PayloadAction<string>) => {
+    decreaseQuantity: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       const book = state.cart.find(book => book.id === bookId)
       if (book && book.quantity > 1) {

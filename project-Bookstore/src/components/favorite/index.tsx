@@ -14,7 +14,7 @@ export function Favorite () {
 
   if (error) return <div className="alert alert-danger">{error}</div>
 
-  const handleRemoveFromFavorites = (bookId: string) => {
+  const handleRemoveFromFavorites = (bookId) => {
     dispatch(removeFromFavorites(bookId))
   }
 
