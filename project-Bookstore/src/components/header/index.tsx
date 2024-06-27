@@ -8,13 +8,13 @@ export function Header () {
 
   return (
     <header className="header">
-      <div className="logo">
+      <div className="header__logo">
         <NavLink className={navLinkClass} to="/"><h1>BOOKSTORE</h1></NavLink>
       </div>
       <SearchForm></SearchForm>
-      <div className="icons">
-        <NavLink className={navLinkClass} to="/books/addToCart"><FiShoppingCart className="icon" /></NavLink>
-        <NavLink className={navLinkClass} to="/books/favorite"><FiBookmark className="icon" /></NavLink>
+      <div className="header__icons">
+        <NavLink className={navLinkClass} to="/books/addToCart"><FiShoppingCart className="header__icons-icon" /></NavLink>
+        <NavLink className={navLinkClass} to="/books/favorite"><FiBookmark className="header__icons-icon" /></NavLink>
       </div>
     </header>
   )

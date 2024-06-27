@@ -1,14 +1,15 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { useEffect, useState } from 'react'
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/books-slice'
 import { Book } from '../../types/type'
+import { RootState } from '../../redux/store'
 import './index.scss'
 
 export function Cart () {
-  const dispatch = useDispatch()
-  const cart = useSelector(state => state.books.cart)
-  const error = useSelector(state => state.books.error)
-  const isLoading = useSelector(state => state.books.isLoading)
+  const dispatch = useAppDispatch()
+  const cart = useAppSelector((state: RootState) => state.books.cart)
+  const error = useAppSelector((state: RootState) => state.books.error)
+  const isLoading = useAppSelector((state: RootState) => state.books.isLoading)
 
   const [totalPrice, setTotalPrice] = useState(0)
 
@@ -17,21 +18,29 @@ export function Cart () {
     setTotalPrice(total)
   }, [cart])
 
-  const handleRemoveFromCart = (bookId) => {
+  const handleRemoveFromCart = (bookId: string) => {
     dispatch(removeFromCart(bookId))
   }
 
-  const handleIncrease = (bookId) => {
+  const handleIncrease = (bookId: string) => {
     dispatch(increaseQuantity(bookId))
   }
 
-  const handleDecrease = (bookId) => {
+  const handleDecrease = (bookId: string) => {
     dispatch(decreaseQuantity(bookId))
   }
 
   if (isLoading) return <div>Loading...</div>
 
   if (error) return <div className="alert alert-danger">{error}</div>
+
+  if (cart.length === 0) {
+    return (
+      <div className="cart-list">
+        <div className="empty-cart">Cart is empty....</div>
+      </div>
+    )
+  }
 
   return (
     <div className="cart-list">
@@ -52,7 +61,7 @@ export function Cart () {
         </div>
       ))}
       <div className="total-price">
-        <h4>Total Price: {totalPrice}$</h4>
+        <h4>Total price: {totalPrice}$</h4>
       </div>
     </div>
   )

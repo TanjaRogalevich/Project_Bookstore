@@ -1,8 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { requestBook } from '../services/book'
+import { Book } from '../types/type'
 
-const initialState = {
-  data: {},
+interface BookState {
+  data: Book;
+  isLoading: boolean;
+  error: string | null;
+}
+
+const initialState : BookState = {
+  data: {} as Book,
   isLoading: false,
   error: null
 }
@@ -11,7 +18,7 @@ export const fetchBook = createAsyncThunk('book/fetchBook', async (id, { rejectW
   try {
     return await requestBook(id)
   } catch (e) {
-    return rejectWithValue(e.message)
+    return rejectWithValue((e as Error).message)
   }
 })
 

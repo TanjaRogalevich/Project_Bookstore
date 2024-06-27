@@ -1,6 +1,6 @@
 .cart-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
   
 .cart-card{
@@ -52,5 +52,8 @@
 
 .cart-card__quantity-number {
   margin: 10px;
-  
+}
+
+.empty-cart {
+  font-size: 25px;
 }

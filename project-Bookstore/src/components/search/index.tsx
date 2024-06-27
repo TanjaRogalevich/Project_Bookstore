@@ -1,18 +1,19 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { fetchSearch } from '../../redux/books-slice'
 import { BookCard } from '../../components/bookCard'
 import { Book } from '../../types/type'
 import { Pagination } from '../../components/pagination'
+import { RootState } from '../../redux/store'
 import './index.scss'
 
 export function Search () {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { query, page: selectedPage } = useParams()
-  const books = useSelector((state) => state.books.list)
-  const error = useSelector((state) => state.books.error)
-  const isLoading = useSelector((state) => state.books.isLoading)
+  const books = useAppSelector((state: RootState) => state.books.list)
+  const error = useAppSelector((state: RootState) => state.books.error)
+  const isLoading = useAppSelector((state: RootState) => state.books.isLoading)
 
   useEffect(() => {
     dispatch(fetchSearch({ query, page: selectedPage || 1 }))

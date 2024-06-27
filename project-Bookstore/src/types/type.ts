@@ -7,7 +7,13 @@ export interface Book {
   image: string;
   url: string;
   isbn13: string;
-  favorite: boolean;
+  isFavorite: boolean;
   cart: boolean;
   quantity: number;
+  inCart: boolean
+  language: string;
+  year: string;
+  desc: string;
+  rating: number;
+  publisher: string;
 }

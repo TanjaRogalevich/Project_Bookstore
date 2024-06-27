@@ -1,10 +1,15 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../types/hooks'
 import { useParams, NavLink } from 'react-router-dom'
 import { buildPaginationScheme } from '../../utils/buildPaginationScheme'
+import { RootState } from '../../redux/store'
 
-export function Pagination (props: string) {
+interface PaginationProps {
+  url: string
+}
+
+export function Pagination (props: PaginationProps) {
   const { page } = useParams()
-  const pagesCount = useSelector(state => state.books.pagesCount)
+  const pagesCount = useAppSelector((state: RootState) => state.books.pagesCount)
 
   if (!pagesCount) return null
 

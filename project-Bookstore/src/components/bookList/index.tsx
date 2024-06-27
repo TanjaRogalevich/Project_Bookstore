@@ -1,15 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { useEffect } from 'react'
 import { BookCard } from '../bookCard'
-import './index.scss'
 import { fetchBooks } from '../../redux/books-slice'
 import { Book } from '../../types/type'
+import { RootState } from '../../redux/store'
+import './index.scss'
 
 export function Books () {
-  const dispatch = useDispatch()
-  const books = useSelector(state => state.books.list)
-  const error = useSelector(state => state.books.error)
-  const isLoading = useSelector(state => state.books.isLoading)
+  const dispatch = useAppDispatch()
+  const books = useAppSelector((state: RootState) => state.books.list)
+  const error = useAppSelector((state: RootState) => state.books.error)
+  const isLoading = useAppSelector((state: RootState) => state.books.isLoading)
 
   useEffect(() => {
     dispatch(fetchBooks())
