@@ -1,9 +1,5 @@
-import React from 'react'
+import { TitleProps } from '../../types/interface'
 import './index.scss'
-
-interface TitleProps {
-  children: React.ReactNode;
-}
 
 export function Title ({ children }: TitleProps) {
   return (

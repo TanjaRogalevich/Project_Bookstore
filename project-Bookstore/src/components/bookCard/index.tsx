@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom'
-import { Book } from '../../types/type'
+import { BookCardProps } from '../../types/interface'
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa'
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { addFavorite, removeFromFavorites } from '../../redux/books-slice'
 import './index.scss'
-
-interface BookCardProps {
-  book: Book
-}
 
 export function BookCard ({ book }: BookCardProps) {
   const dispatch = useAppDispatch()

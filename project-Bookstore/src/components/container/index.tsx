@@ -1,9 +1,5 @@
-import React from 'react'
+import { ContainerProps } from '../../types/interface'
 import './index.scss'
-
-interface ContainerProps {
-  children: React.ReactNode;
-}
 
 export function Container ({ children }: ContainerProps) {
   return <div className="container">{children}</div>

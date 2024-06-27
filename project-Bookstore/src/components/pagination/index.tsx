@@ -2,10 +2,7 @@ import { useAppSelector } from '../../types/hooks'
 import { useParams, NavLink } from 'react-router-dom'
 import { buildPaginationScheme } from '../../utils/buildPaginationScheme'
 import { RootState } from '../../redux/store'
-
-interface PaginationProps {
-  url: string
-}
+import { PaginationProps } from '../../types/interface'
 
 export function Pagination (props: PaginationProps) {
   const { page } = useParams()

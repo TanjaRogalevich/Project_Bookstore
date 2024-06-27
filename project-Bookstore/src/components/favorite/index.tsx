@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { removeFromFavorites } from '../../redux/books-slice'
-import { Book } from '../../types/type'
+import { Book } from '../../types/interface'
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa'
 import { RootState } from '../../redux/store'
 
@@ -14,7 +14,7 @@ export function Favorite () {
 
   if (error) return <div className="alert alert-danger">{error}</div>
 
-  const handleRemoveFromFavorites = (bookId) => {
+  const handleRemoveFromFavorites = (bookId: string) => {
     dispatch(removeFromFavorites(bookId))
   }
 

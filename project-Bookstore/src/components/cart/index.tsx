@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { useEffect, useState } from 'react'
 import { removeFromCart, increaseQuantity, decreaseQuantity } from '../../redux/books-slice'
-import { Book } from '../../types/type'
+import { Book } from '../../types/interface'
 import { RootState } from '../../redux/store'
 import './index.scss'
 
@@ -26,12 +26,8 @@ export function Cart () {
     dispatch(increaseQuantity(bookId))
   }
 
-  const handleDecrease = (bookId: string, quantity: number) => {
-    if (quantity <= 1) {
-      dispatch(removeFromCart(bookId))
-    } else {
-      dispatch(decreaseQuantity(bookId))
-    }
+  const handleDecrease = (bookId: string) => {
+    dispatch(decreaseQuantity(bookId))
   }
 
   if (isLoading) return <div>Loading...</div>

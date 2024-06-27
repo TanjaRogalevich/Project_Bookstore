@@ -1,12 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { requestBook } from '../services/book'
-import { Book } from '../types/type'
-
-interface BookState {
-  data: Book;
-  isLoading: boolean;
-  error: string | null | undefined;
-}
+import { Book } from '../types/interface'
+import { BookState } from '../types/interfaceStates'
 
 const initialState : BookState = {
   data: {} as Book,

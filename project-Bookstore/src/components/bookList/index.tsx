@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../types/hooks'
 import { useEffect } from 'react'
 import { BookCard } from '../bookCard'
 import { fetchBooks } from '../../redux/books-slice'
-import { Book } from '../../types/type'
+import { Book } from '../../types/interface'
 import { RootState } from '../../redux/store'
 import './index.scss'
 

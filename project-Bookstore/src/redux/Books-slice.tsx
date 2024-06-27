@@ -1,22 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { requestBooks, requestSearch } from '../services/book'
-import { Book } from '../types/type'
+import { Book } from '../types/interface'
 import { getFavoritesFromLocalStorage, getCartFromLocalStorage } from '../utils/getFromLocalStorage'
 import { setFavoritesToLocalStorage, setCartToLocalStorage } from '../utils/setFromLocalStorage'
-
-interface BooksState {
-  list: Book[];
-  cart:Book[];
-  favorites:Book[];
-  isLoading: boolean;
-  error: string | null | undefined;
-  pagesCount: number | null;
-}
-
-interface Fetch {
-  query: string | undefined;
-  page: string | number;
-}
+import { BooksState, Fetch } from '../types/interfaceStates'
 
 const initialState: BooksState = {
   list: [],
@@ -110,8 +97,11 @@ const booksSlice = createSlice({
     decreaseQuantity: (state, action: PayloadAction<string | undefined>) => {
       const bookId = action.payload
       const book = state.cart.find(book => book.id === bookId)
+      const index = state.cart.find(book => book.id === bookId)
       if (book && book.quantity > 1) {
         book.quantity = book.quantity - 1
+      } else {
+        state.cart.splice(index, 1)
       }
 
       setCartToLocalStorage(state.cart)
